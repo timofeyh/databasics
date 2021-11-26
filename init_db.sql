@@ -64,22 +64,28 @@ create table User_Rights (
 create table Employees (
 	ID int auto_increment
     ,`Name` varchar(255)
+    ,username varchar(255)
+    ,`password` varchar(255)
     ,Salary double
     ,Birthday date
     ,Contact varchar(255)
     ,User_Rights int
     ,PRIMARY KEY (ID)
     ,FOREIGN KEY (User_Rights) REFERENCES User_Rights(ID)
+    ,UNIQUE(username)
 );
 
 create table Customers (
 	ID int auto_increment
     ,`Name` varchar(255)
+	,username varchar(255)
+    ,`password` varchar(255)
     ,Address varchar(255)
     ,Contact varchar(255)
     ,User_Rights int default 1
     ,PRIMARY KEY (ID)
 	,FOREIGN KEY (User_Rights) REFERENCES User_Rights(ID)
+    ,UNIQUE(username)
 );
 
 create table Vendors (
