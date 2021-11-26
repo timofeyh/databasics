@@ -10,4 +10,4 @@ with recursive receipt(n, FG, FG_txt, Parent, Parent_txt, Child, Child_txt, Qty,
     inner join Materials m2 on b.Child = m2.ID
     inner join receipt r on r.Child = m.ID
 )
-select * from receipt where FG = 9;
+select * from receipt where FG = 1819;

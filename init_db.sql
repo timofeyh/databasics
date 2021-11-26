@@ -90,7 +90,7 @@ create table Customers (
 
 create table Vendors (
 	ID int auto_increment
-	,Vendor_Name varchar(255)
+	,`Name` varchar(255)
     ,Address varchar(255)
     ,Contact varchar(255)
     ,PRIMARY KEY (ID)

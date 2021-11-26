@@ -211,8 +211,32 @@ from Materials m
 join Materials c on c.Item_Description = "Machining Oil"
 where RIGHT(m.Item_Description, 4) = "wire";
 
+insert into Materials (Item_Description, Group_ID, Category, Sub_Category, Size, UOM) values ("Grit Polish", "RM", "Manufacturing", "Polish", 1, "L");
+
+insert into Bill_Of_Materials (Finished_Good, Child, Qty, Scrap) 
+select
+m.ID
+, c.ID
+, 0.02
+, 0.1
+from Materials m 
+join Materials c on c.Item_Description = "Grit Polish"
+where RIGHT(m.Item_Description, 5) = "Chain" and m.Group_ID = "WIP";
+
+insert into Materials (Item_Description, Group_ID, Category, Sub_Category, Size, UOM) values ("Fine Polish", "RM", "Manufacturing", "Polish", 1, "L");
+
+insert into Bill_Of_Materials (Finished_Good, Child, Qty, Scrap) 
+select
+m.ID
+, c.ID
+, 0.005
+, 0.02
+from Materials m 
+join Materials c on c.Item_Description = "Fine Polish"
+where RIGHT(m.Item_Description, 5) = "Chain" and m.Group_ID = "FG";
+
 select * from Bill_Of_Materials;
-select * from Materials;
+select * from Materials where Group_ID = "RM";
 
 drop table IF EXISTS wire_gauges;
 drop table IF EXISTS ring_sizes;

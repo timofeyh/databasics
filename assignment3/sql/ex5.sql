@@ -27,3 +27,37 @@ Select * from customers c
 Inner join Demand_orders d on d.Customer = c.ID
 Where d.Price between 5000 and 20000;
 
+-- Get vendor information that sells the most expensive item (used subquery)
+select * from Vendors
+where Vendors.ID = (select Vendor from Vendor_Items v where v.cost = (select max(cost) from vendor_items));
+
+-- Get a list of vendors with a product price less than 50 cents (used exists)
+select `Name` from Vendors v
+where exists (select Item from Vendor_Items vi inner join Materials m on m.ID = vi.Item where vi.Vendor = v.ID and m.RM_Group like "14K Rose Gold");
+
+-- Setup to demonstrate
+/************************************************************************************************************
+SET @VENDORID=null,@EMPLOYEEID=1,@MATERIAL=1840,@QTY=50;
+insert into supply_orders (
+	Material
+	, Qty
+	, Vendor
+	, Ordered_By
+	, Order_Date
+) select
+ID
+, @QTY
+, @VENDORID
+, @EMPLOYEEID
+, curdate()
+from Materials where ID = @MATERIAL;  
+SET @ORDID=1, @EMPLOYEEID=1;
+update supply_orders set `Status`='OPEN', Approved_By = @EMPLOYEEID where ID=@ORDID and `Status`='NEW';
+update materials set stock = 20 where ID > 20;
+-- ********************************************************************************************************/
+-- Return all supply_orders that arent complete or in production that do not have enough inventory to complete
+select * from materials m
+where exists(select * from supply_orders s
+		join Bill_Of_Materials b on s.Material = b.Finished_Good
+		inner join Materials m2 on b.Child = m2.ID
+		where m2.Stock < b.Qty * s.Qty and s.Material = m.ID and s.Status <> "COMPLETE" and s.Status <> "PRODUCTION"); 
