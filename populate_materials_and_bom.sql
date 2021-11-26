@@ -1,15 +1,15 @@
 use databasics;
 
-drop table wire_gauges;
+drop table IF EXISTS wire_gauges;
 create table wire_gauges (gauge varchar(255));
 
-drop table ring_sizes;
+drop table IF EXISTS ring_sizes;
 create table ring_sizes (size varchar(255));
 
-drop table chain_types;
+drop table IF EXISTS chain_types;
 create table chain_types (cType varchar(255));
 
-drop table chain_lengths;
+drop table IF EXISTS chain_lengths;
 create table chain_lengths (len double);
 
 insert into Materials (Item_Description, Group_ID, Category, Sub_Category, Size, UOM, RM_Group) values 
@@ -212,4 +212,9 @@ join Materials c on c.Item_Description = "Machining Oil"
 where RIGHT(m.Item_Description, 4) = "wire";
 
 select * from Bill_Of_Materials;
-select * from Materials where Group_ID = "RM";
+select * from Materials;
+
+drop table IF EXISTS wire_gauges;
+drop table IF EXISTS ring_sizes;
+drop table IF EXISTS chain_types;
+drop table IF EXISTS chain_lengths;

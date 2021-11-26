@@ -39,3 +39,4 @@ select c.* from materials m
     join bill_of_materials b on b.Finished_Good = m.ID
     inner join materials c on b.Child = c.ID
     where @COMPLETE and s.ID = @ORDID;
+    

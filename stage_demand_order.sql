@@ -3,7 +3,6 @@
 use databasics;
 
 SET @ORDID=1;
-update materials set stock = 100 where ID = 1819;
 Start transaction;
 	SET @READY = EXISTS(Select `Status` from demand_orders where ID=@ORDID and `Status` = 'OPEN');
 	update demand_orders d inner join materials m on d.Material = m.ID set d.`Status`='STAGED' where d.ID=@ORDID and m.Stock > d.Qty and d.`Status` = 'OPEN';
