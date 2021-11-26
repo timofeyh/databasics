@@ -7,4 +7,4 @@ with recursive receipt(n, FG, ID, Item_Description, Qty, UOM, Scrap, Price) as
     inner join Materials m on b.Child = m.ID
     inner join receipt r on r.ID = b.Finished_Good
 )
-select r.ID ID, m.Item_Description Item_Description, r.Qty*s.Qty Required from supply_orders s left join receipt r on s.Material = r.FG inner join Materials m on r.ID = m.ID where s.`Status` = "PRODUCTION";
+select s.ID `Order`, r.FG `Material`, m2.Item_Description `Produced Item`, r.ID ID, m.Item_Description `Consumed Item`, r.Qty*s.Qty Required from supply_orders s left join receipt r on s.Material = r.FG inner join Materials m on r.ID = m.ID inner join Materials m2 on r.FG = m2.ID where s.`Status` = "PRODUCTION";
