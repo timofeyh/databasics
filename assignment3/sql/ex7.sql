@@ -1,0 +1,11 @@
+CREATE VIEW LowSalary AS SELECT *
+FROM Employees
+WHERE Salary > 9000;
+
+CREATE VIEW HighSalary AS SELECT *
+FROM Employees
+WHERE Salary > 10000
+WITH LOCAL CHECK OPTION;
+
+CREATE VIEW SeniorManager AS SELECT *
+FROM HighSalary WHERE Name='John';
