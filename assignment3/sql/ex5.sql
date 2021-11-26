@@ -74,7 +74,7 @@ with recursive receipt(n, FG, FG_txt, Parent, Parent_txt, Child, Child_txt, Qty,
     inner join Materials m2 on b.Child = m2.ID
     inner join receipt r on r.Child = m.ID
 )
-select MAX(m2.Item_Description) Raw_Material, Sum(r.Qty*d.Qty) Qty_Ordered, MAX(m2.UOM) UOM from demand_orders d 
+select m2.Item_Description Raw_Material, Sum(r.Qty*d.Qty) Qty_Ordered, MAX(m2.UOM) UOM from demand_orders d 
 inner join materials m on m.ID = d.Material 
 left join receipt r on r.FG = m.ID 
 inner join materials m2 on r.Child = m2.ID 
