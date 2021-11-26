@@ -3,8 +3,8 @@ FROM Employees
 WHERE Salary > 9000;
 
 CREATE VIEW HighSalary AS SELECT *
-FROM LowSalary
-WHERE salary > 10000
+FROM Employees
+WHERE Salary > 10000
 WITH LOCAL CHECK OPTION;
 
 CREATE VIEW SeniorManager AS SELECT *
