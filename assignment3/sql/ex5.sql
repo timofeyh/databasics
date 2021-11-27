@@ -1,6 +1,6 @@
 use databasics;
 
--- Output the breakdown of any material
+-- Output the breakdown of any material (not RM)
 with recursive receipt(n, FG, FG_txt, Parent, Parent_txt, Child, Child_txt, Qty, UOM, Scrap, Price,`Group`) as 
 (
 	select 1 n, m.ID, m.Item_Description, m.ID, m.Item_Description, m2.ID Child, m2.Item_Description, CAST(1.00 as double) QTY, m2.UOM, 0.00 Scrap, m2.Price Price, m2.Group_ID From bill_of_materials b
@@ -12,7 +12,7 @@ with recursive receipt(n, FG, FG_txt, Parent, Parent_txt, Child, Child_txt, Qty,
     inner join Materials m2 on b.Child = m2.ID
     inner join receipt r on r.Child = m.ID
 )
-select * from receipt where FG = 9;
+select * from receipt where FG = 1819;
 
 -- Return all orders that are in production and the materials that are being used
 select s.ID `Order`, m2.ID `Material`, m2.Item_Description `Produced Item`, m.ID ID, m.Item_Description `Consumed Item`, b.Qty*s.Qty Required, m.UOM 
@@ -36,7 +36,7 @@ select `Name` from Vendors v
 where exists (select Item from Vendor_Items vi inner join Materials m on m.ID = vi.Item where vi.Vendor = v.ID and m.RM_Group like "14K Rose Gold");
 
 -- Setup to demonstrate
-/************************************************************************************************************
+/************************************************************************************************************/
 SET @VENDORID=null,@EMPLOYEEID=1,@MATERIAL=1840,@QTY=50;
 insert into supply_orders (
 	Material
