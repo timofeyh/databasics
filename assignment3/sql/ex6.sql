@@ -55,12 +55,6 @@ commit;
 select * from supply_orders;
     
 select m.* from materials m inner join supply_orders d on m.ID = d.Material where d.ID = @ORDID;
-
-select c.* from materials m 
-    inner join supply_orders s on s.Material = m.ID
-    join bill_of_materials b on b.Finished_Good = m.ID
-    inner join materials c on b.Child = c.ID
-    where @COMPLETE and s.ID = @ORDID;
     
 SET @ORDID=1;
 Start transaction;
